@@ -47,7 +47,8 @@ description: 在 DeepSeek Harness（DSH）源码里开发 Web 前端插件/UI �
 
 - 先用只读调研（子代理）摸清框架契约再动手，别盲改（本技能的所有机制来自一次实测调研）。
 - UI 改动可用"调用子代理"做活体演示（组件显示 running 子代理 → 窗口出现）。
-- 服务端插件加载链路若需深查：搜 `client-plugin` / bundle 生成点（`packages/bundle/web-app`、`packages/host/*`、`packages/client/web`）。
+- 服务端插件加载链路若需深查：搜 `client-plugin` / bundle 生成点（`packages/bundle/web-app`、`packages/host/*`、`packages/client/web`）；**完整机制文档（含文件路径/代码摘录）已归档：agent-artifacts 仓库 `knowledge/dsh-plugin-transport.md`**。
+- 快捷验证服务端实际交付：`curl http://127.0.0.1:3080/plugins/@deepseek-ai/dsh-client-ui-subagent/client.js`（服务每次读盘，看到即实际交付）。
 
 ## 关联
 
