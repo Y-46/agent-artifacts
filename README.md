@@ -37,6 +37,7 @@
 - `dsh-web-launcher.md` — DSH Web 服务启动器（流程/踩坑/故障排查）
 - `dsh-web-plugin.md` — DSH Web 前端插件开发（槽位机制、shell.overlay、lib/src 构建链路）
 - `pwa-android-apk.md` — PWA → Android APK 打包（GitHub Pages、PWABuilder、本地 Gradle 构建、DeepSeek 数据源）
+- `llama-cpp-android.md` — 安卓 App 集成 llama.cpp 本地推理（源码获取/NDK 编译/JNI 流式/GGUF 接入，2026-08 实战）
 - `task-output-layout.md` — 任务文件组织规范（Temp Document/OutPut）
 - `skill-library-evolution.md` — 技能库进化流程
 

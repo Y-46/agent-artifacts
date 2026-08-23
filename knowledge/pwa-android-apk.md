@@ -47,6 +47,8 @@ description: 把轻量工具做成手机可用的 PWA 并打包 Android APK：PW
 7. **沙箱 HTTPS 出网被拦，但 Java 可出网（关键技巧）**：受限环境下 `curl`/`Invoke-WebRequest` 报 schannel `SEC_E_NO_CREDENTIALS` / "基础连接已关闭"，http 又被服务器 301 到 https——**改用 JVM 进程**（`HttpURLConnection` 单文件 Java 工具、gradle）即可正常出网（Java 走 JSSE 不依赖 schannel）。拉 GitHub 文件用 `cdn.jsdelivr.net/gh/user/repo@branch/path`（raw.githubusercontent 易超时）。
 8. **AGP 工程位置与权限**：工程路径必须**纯 ASCII**且放在工作区内（如 `E:\Work Document\AndroidBuild\<project>`）；gradle 构建需写 `~/.gradle`（wrapper 锁文件/依赖缓存），工作区沙箱会拒——构建命令一次性授权（danger-full-access）即可，构建完成后源码/APK 落到工作区不受影响。
 9. **解析层零依赖单测**：Android 的 `org.json` 在 JDK 不存在，从 maven central 拉 `json-*.jar` 即可在 JDK 编译运行"纯解析类"（ApiClient 聚合逻辑）；private 方法用反射测；模拟响应用 Java 15+ 文本块构造（避免手拼 JSON 字符串的括号错误）——见"平台内部 API 字段"节。
+10. **DSH 工具环境实际是 Windows PowerShell 5.1（非 pwsh7）**（2026-08 验证）：`ForEach-Object -Parallel` 不可用；`.ps1` 默认被禁 → `Set-ExecutionPolicy -Scope Process Bypass -Force` 再执行；**`.ps1` 文件里的中文路径被 GBK 误读**（文件须 UTF-8 BOM 或脚本路径全 ASCII）；`Start-Job -ArgumentList` 传嵌套数组会被拍平/错位 → 改**分块文件**方案（每个 job 读自己的 chunkN.txt）；字符串里 `"$p:"` 会被解析成驱动器变量 → 用 `"$($p):"` 或字符串拼接；`$env:JAVA_HOME\bin\keytool.exe` 优于猜绝对路径。
+11. **弱网获取 GitHub 大仓库源码（CDN 逐文件并行）**：git clone 太慢/老断（本机到 GitHub 仅 ~20KB/s）时——`api.github.com/repos/<owner>/<repo>/git/trees/<branch>?recursive=1` 拿文件清单 → 按需过滤目录（注意仓库内嵌的 `ggml/`、`vendor/` 这类"非子模块但必须"的目录别漏）→ `cdn.jsdelivr.net/gh/<owner>/<repo>@<branch>/<path>` 逐文件下载，8 路 Start-Job 并行几分钟拉完数百 MB 级仓库。可复用脚本：`llama-cpp-android` 技能 `scripts/fetch-repo-cdn.ps1`。备选：codeload tarball + `curl -L -C -` 断点续传；gitee 镜像本机要求登录（不可用）。
 
 ## 实际部署经验（Y-46/Ap-0 实战）
 
