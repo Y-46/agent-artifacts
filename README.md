@@ -32,6 +32,7 @@
 - `agent-artifacts.md` — 本仓库的管理约定与归档规则（目录约定、同步规则、agent 每会话必读）
 - `constraints-audit.md` — 全局约束审查与优化流程（4 层来源、诊断重复冲突、合并去重清单）
 - `dsh-plugin-transport.md` — DSH client 插件打包/传送机制深度调研（lib/src 链路、/plugins 路由、HMR、缓存真相，含排查套路）
+- `dsh-session-log.md` — DSH 会话日志存储/读取方法（磁盘位置、session.list/export API、zstd 多帧解压、脉络提取）
 - `dsh-web-launcher.md` — DSH Web 服务启动器（流程/踩坑/故障排查）
 - `dsh-web-plugin.md` — DSH Web 前端插件开发（槽位机制、shell.overlay、lib/src 构建链路）
 - `pwa-android-apk.md` — PWA → Android APK 打包（GitHub Pages、PWABuilder、本地 Gradle 构建、DeepSeek 数据源）
