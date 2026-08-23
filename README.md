@@ -37,7 +37,7 @@
 
 ### projects/（任务产物）
 
-（待后续任务归档）
+- `dsh-subagent-monitor/` — DSH 前端改造：子代理活动监视窗口（shell.overlay 浮层，含补丁可 `git am` 恢复）
 
 ### templates/（模板）
 
