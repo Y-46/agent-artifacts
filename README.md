@@ -45,6 +45,7 @@
 
 - `dsh-subagent-monitor/` — DSH 前端改造：子代理活动监视窗口（shell.overlay 浮层，含补丁可 `git am` 恢复）
 - `global-constraints-summary/` — 全局约束优化总结（约束来源全景、诊断表、合并去重后的统一约束清单）
+- `电脑清理扫描/` — 2026-08-24 全盘清理（扫描报告 + 清理前后对比，释放约 16.9 GB）
 
 ### templates/（模板）
 
