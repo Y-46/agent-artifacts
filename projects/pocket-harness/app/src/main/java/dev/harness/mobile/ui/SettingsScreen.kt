@@ -114,6 +114,7 @@ fun SettingsScreen(container: AppContainer) {
                 OutlinedTextField(
                     value = baseUrl,
                     onValueChange = { baseUrl = it },
+                    colors = harnessFieldColors(),
                     label = { Text("Base URL") },
                     placeholder = { Text("https://api.deepseek.com/v1") },
                     singleLine = true,
@@ -122,6 +123,7 @@ fun SettingsScreen(container: AppContainer) {
                 OutlinedTextField(
                     value = model,
                     onValueChange = { model = it },
+                    colors = harnessFieldColors(),
                     label = { Text("模型名") },
                     placeholder = { Text("deepseek-chat") },
                     singleLine = true,
@@ -130,6 +132,7 @@ fun SettingsScreen(container: AppContainer) {
                 OutlinedTextField(
                     value = apiKeyInput,
                     onValueChange = { apiKeyInput = it },
+                    colors = harnessFieldColors(),
                     label = { Text(if (hasKey) "API Key（已保存，留空则不改）" else "API Key") },
                     placeholder = { Text("sk-…") },
                     singleLine = true,
@@ -157,6 +160,7 @@ fun SettingsScreen(container: AppContainer) {
                     OutlinedTextField(
                         value = maxTokens,
                         onValueChange = { maxTokens = it },
+                        colors = harnessFieldColors(),
                         label = { Text("max_tokens") },
                         singleLine = true,
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
@@ -165,6 +169,7 @@ fun SettingsScreen(container: AppContainer) {
                     OutlinedTextField(
                         value = maxIterations,
                         onValueChange = { maxIterations = it },
+                        colors = harnessFieldColors(),
                         label = { Text("最大轮数") },
                         singleLine = true,
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
@@ -245,6 +250,7 @@ fun SettingsScreen(container: AppContainer) {
                 OutlinedTextField(
                     value = systemPrompt,
                     onValueChange = { systemPrompt = it },
+                    colors = harnessFieldColors(),
                     modifier = Modifier.fillMaxWidth(),
                     minLines = 6,
                     label = { Text("Agent 的行为约定") }

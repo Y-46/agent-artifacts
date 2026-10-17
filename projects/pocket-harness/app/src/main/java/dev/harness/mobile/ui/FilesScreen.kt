@@ -244,6 +244,7 @@ fun FilesScreen(container: AppContainer) {
                     OutlinedTextField(
                         value = createName,
                         onValueChange = { createName = it },
+                        colors = harnessFieldColors(),
                         singleLine = true,
                         placeholder = { Text("例如 notes.md") },
                         modifier = Modifier.fillMaxWidth().padding(top = 8.dp)

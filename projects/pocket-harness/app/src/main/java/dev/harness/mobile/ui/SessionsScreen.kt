@@ -131,6 +131,7 @@ fun SessionsScreen(
                 OutlinedTextField(
                     value = renameText,
                     onValueChange = { renameText = it },
+                    colors = harnessFieldColors(),
                     singleLine = true,
                     modifier = Modifier.fillMaxWidth()
                 )

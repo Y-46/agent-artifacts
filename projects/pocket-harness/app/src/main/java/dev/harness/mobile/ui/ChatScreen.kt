@@ -190,6 +190,7 @@ fun ChatScreen(
                 OutlinedTextField(
                     value = input,
                     onValueChange = { input = it },
+                    colors = harnessFieldColors(),
                     modifier = Modifier.weight(1f),
                     placeholder = { Text("告诉 Agent 要做什么…") },
                     maxLines = 5,
