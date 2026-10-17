@@ -387,7 +387,7 @@ private fun ToolResultCard(message: Message) {
                 color = if (content.startsWith("错误")) {
                     MaterialTheme.colorScheme.error
                 } else {
-                    MaterialTheme.colorScheme.onSurfaceVariant
+                    MaterialTheme.colorScheme.onSurface
                 },
                 maxLines = if (expanded) 400 else 3,
                 overflow = TextOverflow.Ellipsis,

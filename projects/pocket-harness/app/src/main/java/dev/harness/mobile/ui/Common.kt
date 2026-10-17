@@ -164,7 +164,7 @@ fun MonoText(
     text: String,
     modifier: Modifier = Modifier,
     color: Color = MaterialTheme.colorScheme.onSurfaceVariant,
-    size: Int = 12
+    size: Int = 13
 ) {
     Text(
         text = text,

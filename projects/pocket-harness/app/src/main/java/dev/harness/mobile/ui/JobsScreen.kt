@@ -95,7 +95,7 @@ fun JobsScreen(container: AppContainer) {
                             color = when (log.level) {
                                 "error" -> MaterialTheme.colorScheme.error
                                 "warn" -> MaterialTheme.colorScheme.tertiary
-                                else -> MaterialTheme.colorScheme.onSurfaceVariant
+                                else -> MaterialTheme.colorScheme.onSurface
                             },
                             modifier = Modifier.weight(1f)
                         )
