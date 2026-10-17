@@ -2,6 +2,8 @@ package dev.harness.mobile.net
 
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.ResponseBody
+import okio.Buffer
 import java.net.URLDecoder
 import java.net.URLEncoder
 import java.util.concurrent.TimeUnit
@@ -57,8 +59,21 @@ class WebClient(private val http: OkHttpClient) {
         client.newCall(request).execute().use { response ->
             if (!response.isSuccessful) throw IllegalStateException("HTTP ${response.code}")
             val body = response.body ?: throw IllegalStateException("响应体为空")
-            return body.peekBody(maxBytes).string()
+            return body.cappedString(maxBytes)
         }
+    }
+
+    /** OkHttp 的 ResponseBody 没有 peekBody，这里自己按上限读，避免大页面把内存吃爆。 */
+    private fun ResponseBody.cappedString(maxBytes: Long): String {
+        val source = source()
+        val buffer = Buffer()
+        var remaining = maxBytes
+        while (remaining > 0L) {
+            val read = source.read(buffer, minOf(remaining, 16_384L))
+            if (read == -1L) break
+            remaining -= read
+        }
+        return buffer.readUtf8()
     }
 
     private fun parseResults(html: String, limit: Int): List<SearchResult> {

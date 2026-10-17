@@ -8,6 +8,7 @@ plugins {
 android {
     namespace = "dev.harness.mobile"
     compileSdk = 36
+    buildToolsVersion = "36.0.0"
 
     defaultConfig {
         applicationId = "dev.harness.mobile"

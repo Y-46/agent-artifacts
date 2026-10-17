@@ -102,11 +102,11 @@ fun SettingsScreen(container: AppContainer) {
                         baseUrl = "https://api.deepseek.com/v1"
                         model = "deepseek-chat"
                     }
-                    ChoiceChip("OpenAI") {
+                    ChoiceChip("OpenAI", settings.baseUrl.contains("openai.com")) {
                         baseUrl = "https://api.openai.com/v1"
                         model = "gpt-4o-mini"
                     }
-                    ChoiceChip("本地/自建") {
+                    ChoiceChip("本地/自建", settings.baseUrl.contains("192.168") || settings.baseUrl.contains("localhost")) {
                         baseUrl = "http://192.168.1.10:11434/v1"
                         model = "qwen2.5:7b"
                     }

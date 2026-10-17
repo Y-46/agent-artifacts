@@ -9,15 +9,19 @@
 
 ## 拿到 APK 的三种方式
 
-### 1. GitHub Actions（本仓库已配好，推荐）
+### 1. GitHub Actions（推荐，电脑上零安装）
 
-工程在 `projects/pocket-harness/`，工作流在仓库根的
-`.github/workflows/build-pocket-harness.yml`：改动 `projects/pocket-harness/**`
-或手动触发都会自动出包。
+```bash
+cd pocket-harness
+git init && git add -A && git commit -m "init pocket harness"
+# 在 GitHub 建一个空仓库，然后：
+git remote add origin https://github.com/<你的账号>/pocket-harness.git
+git push -u origin main
+```
 
-1. 打开仓库 **Actions → Build Pocket Harness APK → Run workflow**
-2. 跑完在页面底部 **Artifacts** 下载 `pocket-harness-debug-apk.zip`
-3. 解压得到 `app-debug.apk`，传到手机安装
+push 之后进仓库的 **Actions → Build APK**，跑完在页面底部 **Artifacts** 下载
+`pocket-harness-debug-apk.zip`，解压得到 `app-debug.apk`，发到手机安装即可。
+
 ### 2. 本机 Android Studio
 
 用 Android Studio 打开 `pocket-harness` 目录（Gradle 8.13 / AGP 8.11.1 / JDK 17），
@@ -152,8 +156,12 @@ app/src/main/java/dev/harness/mobile/
 - **后台受系统调度限制**：前台服务能让它活得更久，但省电策略仍可能杀掉长任务；日志会保留，不会丢。
 - **大体量上下文**：超过 `max_tokens` 后历史会报错，建议定期开新会话。
 
-## 说明
+## 构建状态
 
-这份工程是在一台**没有 Android SDK、且 shell 网络被沙箱拦截**的机器上写出来的，
-所以作者没能在写代码的机器上跑一次真实编译，产物统一走上面的 GitHub Actions；
-如果 CI 报某个依赖或 SDK 版本不存在，改 `gradle/libs.versions.toml` 里的版本号即可（其余代码不依赖具体小版本）。
+- 已在本机实测编译通过：`gradle assembleDebug` → `app-debug.apk`（约 10.7 MB，约 22 秒增量构建）
+- 产物校验：`package dev.harness.mobile`、`minSdk 26`、`targetSdk 36`（Android 16）、debug 签名，可直接安装
+- 工具链：Gradle 8.13 / AGP 8.11.1 / Kotlin 2.1.21 / JDK 17+ / build-tools 36.0.0
+- 踩过的坑（写给以后的自己）：
+  - Kotlin 的 `Sequence` 没有 `limit()`，要用 `take()`
+  - OkHttp 4.x 的 `ResponseBody` 没有 `peekBody()`，要自己用 `source()` + `okio.Buffer` 限长读取
+  - `material-icons-core` 不在 Compose BOM 里，必须显式写版本

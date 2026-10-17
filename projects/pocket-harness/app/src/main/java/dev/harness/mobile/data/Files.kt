@@ -162,7 +162,7 @@ class WorkspaceStore(context: Context) {
         if (base.isFile) {
             candidates.add(base)
         } else if (base.isDirectory) {
-            base.walkTopDown().limit(3000).forEach { if (it.isFile) candidates.add(it) }
+            base.walkTopDown().take(3000).forEach { if (it.isFile) candidates.add(it) }
         }
         for (file in candidates) {
             if (hits.size >= maxHits) break
