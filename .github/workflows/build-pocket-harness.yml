@@ -1,0 +1,60 @@
+name: Build Pocket Harness APK
+
+on:
+  push:
+    branches: [ "main", "master" ]
+    paths:
+      - "projects/pocket-harness/**"
+      - ".github/workflows/build-pocket-harness.yml"
+  pull_request:
+    paths:
+      - "projects/pocket-harness/**"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    defaults:
+      run:
+        working-directory: projects/pocket-harness
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.13'
+
+      - name: Accept Android licenses and ensure SDK 36
+        run: |
+          set -o pipefail
+          if [ -x "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" ]; then
+            yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null || true
+            "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --install "platforms;android-36" "build-tools;36.0.0" || true
+          else
+            echo "cmdline-tools not preinstalled; AGP will resolve what it needs."
+          fi
+
+      - name: Assemble debug APK
+        run: gradle --no-daemon --stacktrace assembleDebug
+
+      - name: List APK output
+        if: always()
+        run: ls -la app/build/outputs/apk/debug || true
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: pocket-harness-debug-apk
+          path: projects/pocket-harness/app/build/outputs/apk/debug/*.apk
+          if-no-files-found: error
+          retention-days: 30

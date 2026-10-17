@@ -1,0 +1,8 @@
+-keepattributes *Annotation*, InnerClasses
+-dontnote kotlinx.serialization.**
+-keepclassmembers class kotlinx.serialization.json.** { *; }
+-keep,includedescriptorclasses class dev.harness.mobile.**$$serializer { *; }
+-keepclassmembers class dev.harness.mobile.** { *** Companion; }
+-keepclasseswithmembers class dev.harness.mobile.** { kotlinx.serialization.KSerializer serializer(...); }
+-dontwarn okhttp3.**
+-dontwarn okio.**

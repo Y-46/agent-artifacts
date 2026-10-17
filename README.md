@@ -31,6 +31,7 @@
 ### projects/（任务产物）
 
 - `dsh-subagent-monitor/` — 子代理监视浮层（源码补丁 + 注入式应用说明）
+- `pocket-harness/` — 安卓独立移动版 harness（Kotlin/Compose 源码 + CI 一键出 APK）
 
 ### templates/（模板）
 
